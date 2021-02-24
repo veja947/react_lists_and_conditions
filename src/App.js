@@ -20,7 +20,8 @@ class App extends Component {
                 age: 38
             }
         ],
-        description: 'this is the description in state'
+        description: 'this is the description in state',
+        showPersons: false
     };
 
     changePerson = (newName) => {
@@ -63,6 +64,11 @@ class App extends Component {
       })
     };
 
+    togglePersonsHandler = () => {
+        const doesShow = this.state.showPersons;
+        this.setState({showPersons: !doesShow});
+    }
+
     render() {
         const buttonStyles = {
             backgroundColor: "#cccccc",
@@ -80,22 +86,27 @@ class App extends Component {
                 </header>
                 <button
                     style={buttonStyles}
-                    onClick={this.changePerson.bind(this, 'new name for first person')}>Change Name</button>
+                    onClick={this.togglePersonsHandler}>Toggle Persons</button>
                 <p className="App-intro">
-                    <Person
-                        name={this.state.persons[0].name}
-                        age={this.state.persons[0].age}/>
-                    <Person
-                        myClick={() => {this.changePerson("my new name")}}
-                        name={this.state.persons[1].name}
-                        age={this.state.persons[1].age}
-                    >
-                        {this.state.description}
-                    </Person>
-                    <Person
-                        editInput={this.editInputHandler}
-                        name={this.state.persons[2].name}
-                        age={this.state.persons[2].age}/>
+                    {
+                        this.state.showPersons ?
+                            <div>
+                                <Person
+                                    name={this.state.persons[0].name}
+                                    age={this.state.persons[0].age}/>
+                                <Person
+                                    myClick={() => {this.changePerson("my new name")}}
+                                    name={this.state.persons[1].name}
+                                    age={this.state.persons[1].age}>
+                                    {this.state.description}
+                                </Person>
+                                <Person
+                                    editInput={this.editInputHandler}
+                                    name={this.state.persons[2].name}
+                                    age={this.state.persons[2].age}/>
+                            </div>
+                        : null
+                    }
                 </p>
             </div>
         );
