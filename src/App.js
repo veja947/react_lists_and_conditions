@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Person from './Person/Person';
+import person from "./Person/Person";
 
 class App extends Component {
 
@@ -26,6 +27,21 @@ class App extends Component {
         description: 'this is the description in state',
         showPersons: false
     };
+
+    nameChangedHandler = (event, id) => {
+        let newName = event.target.value;
+        let changedPersonIndex = this.state.persons.findIndex((p) => {
+            return p.id === id;
+        });
+
+        let changedPerson = {...this.state.persons[changedPersonIndex]};
+        changedPerson.name = newName;
+        let personsList = [...this.state.persons];
+        personsList[changedPersonIndex] = changedPerson;
+        this.setState({
+            persons: personsList
+        })
+    }
 
     deletePersonHandler = (personIndex) => {
         const persons = [...this.state.persons];
@@ -54,6 +70,7 @@ class App extends Component {
                         return <Person
                             key={person.id}
                             myClick={() => this.deletePersonHandler(index)}
+                            myInputChange={(event) => this.nameChangedHandler(event, person.id)}
                             name={person.name}
                             age={person.age} />
                     })}
