@@ -8,40 +8,23 @@ class App extends Component {
     state = {
         persons: [
             {
+                id: 1,
                 name: 'name 1',
                 age: 18
             },
             {
+                id: 2,
                 name: 'name 2',
                 age: 28
             },
             {
+                id: 3,
                 name: 'name 3',
                 age: 38
             }
         ],
         description: 'this is the description in state',
         showPersons: false
-    };
-
-    changePerson = (newName) => {
-        this.setState({
-            persons: [
-                {
-                    name: newName,
-                    age: 81
-                },
-                {
-                    name: 'another name 2',
-                    age: 82
-                },
-                {
-                    name: 'another name 3',
-                    age: 83
-                }
-            ],
-            anotherDescription: 'this is another description in state'
-        })
     };
 
     deletePersonHandler = (personIndex) => {
@@ -69,6 +52,7 @@ class App extends Component {
                 <div>
                     {this.state.persons.map((person, index) => {
                         return <Person
+                            key={person.id}
                             myClick={() => this.deletePersonHandler(index)}
                             name={person.name}
                             age={person.age} />
