@@ -77,6 +77,26 @@ class App extends Component {
             padding: "8px"
         };
 
+        let personList = null;
+        if (this.state.showPersons) {
+            personList = (
+                <div>
+                    <Person
+                        name={this.state.persons[0].name}
+                        age={this.state.persons[0].age}/>
+                    <Person
+                        myClick={() => {this.changePerson("my new name")}}
+                        name={this.state.persons[1].name}
+                        age={this.state.persons[1].age}>
+                        {this.state.description}
+                    </Person>
+                    <Person
+                        editInput={this.editInputHandler}
+                        name={this.state.persons[2].name}
+                        age={this.state.persons[2].age}/>
+                </div>
+            );
+        }
 
         return (
             <div className="App">
@@ -88,25 +108,7 @@ class App extends Component {
                     style={buttonStyles}
                     onClick={this.togglePersonsHandler}>Toggle Persons</button>
                 <p className="App-intro">
-                    {
-                        this.state.showPersons ?
-                            <div>
-                                <Person
-                                    name={this.state.persons[0].name}
-                                    age={this.state.persons[0].age}/>
-                                <Person
-                                    myClick={() => {this.changePerson("my new name")}}
-                                    name={this.state.persons[1].name}
-                                    age={this.state.persons[1].age}>
-                                    {this.state.description}
-                                </Person>
-                                <Person
-                                    editInput={this.editInputHandler}
-                                    name={this.state.persons[2].name}
-                                    age={this.state.persons[2].age}/>
-                            </div>
-                        : null
-                    }
+                    {personList}
                 </p>
             </div>
         );
