@@ -44,25 +44,11 @@ class App extends Component {
         })
     };
 
-    editInputHandler = (event) => {
-      this.setState({
-          persons: [
-              {
-                  name: 'another name1',
-                  age: 81
-              },
-              {
-                  name: 'another name 2',
-                  age: 82
-              },
-              {
-                  name: event.target.value,
-                  age: 83
-              }
-          ],
-          anotherDescription: 'this is another description in state'
-      })
-    };
+    deletePersonHandler = (personIndex) => {
+        const persons = this.state.persons;
+        persons.splice(personIndex, 1);
+        this.setState({persons: persons});
+    }
 
     togglePersonsHandler = () => {
         const doesShow = this.state.showPersons;
@@ -81,8 +67,11 @@ class App extends Component {
         if (this.state.showPersons) {
             personList = (
                 <div>
-                    {this.state.persons.map((person) => {
-                        return <Person name={person.name} age={person.age} />
+                    {this.state.persons.map((person, index) => {
+                        return <Person
+                            myClick={() => this.deletePersonHandler(index)}
+                            name={person.name}
+                            age={person.age} />
                     })}
                 </div>
             );
